@@ -1,0 +1,86 @@
+<%- include('header') -%>
+    <div class="container">
+        <h1>Sign up page</h1>
+
+        <div class="container-fluid">
+            <form method="POST">
+                <div class="mb-3 row">
+                    <div class="col-sm">
+                        <label for="firstname" class="col-form-label">First name:</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            name="firstname"
+                            id="firstname"
+                            placeholder="First Name"
+                            value="<% if (errors) { %><%= firstname %><% } %>"
+                            required
+                        />
+                    </div>
+                    
+                    <div class="col-sm">
+                        <label for="lastname" class="col-form-label">Last name:</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            name="lastname"
+                            id="lastname"
+                            placeholder="Last Name"
+                            value="<% if (errors) { %><%= lastname %><% } %>"
+                            required
+                        />
+                    </div>
+                </div>
+                <div class="col-sm mb-3">
+                    <label for="useremail" class="col-form-label">Email:</label>
+                    <input
+                        type="email"
+                        class="form-control"
+                        name="useremail"
+                        id="useremail"
+                        placeholder="@"
+                        value="<% if (errors) { %><%= email %><% } %>"
+                        required
+                    />
+                </div>
+                <div class="col-sm mb-3">
+                    <label for="username" class="col-form-label">Username:</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        name="username"
+                        id="username"
+                        placeholder="Username"
+                        value="<% if (errors) { %><%= username %><% } %>"
+                        required
+                    />
+                </div>
+                <div class="col-sm mb-3">
+                    <label for="password" class="col-form-label">Password:</label>
+                    <input
+                        type="password"
+                        class="form-control"
+                        name="password"
+                        id="password"
+                        placeholder="Password"
+                        required
+                    />
+                </div>
+                
+                <% if (errors) { %>
+                    <ul>
+                        <% errors.forEach(err => { %>
+                         <li class="text-danger"><%= err.msg %></li>
+                        <% }) %>
+                    </ul>
+                <% } %>
+
+                <div class="text-center">
+                    <button class="btn btn-success" type="submit">Register</button>
+                </div>
+            </form>
+        </div>
+        
+        
+    </div>
+<%- include('footer') -%>
