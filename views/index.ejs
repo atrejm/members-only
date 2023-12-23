@@ -3,9 +3,12 @@
         <h1>Home page</h1>
 
         <% if (user) {%>
-            <h1>WELCOME BACK <%= user.username %></h1>
-            <a href="/log-out">LOG OUT</a>
+            <h3>Welcome back, <a href="/user/<%= user.url %>"><%= user.username %></a></h3>
         
+        <% if (user.admin) { %>
+            <p class="text-danger">admin privileges enabled!</p>
+        <% } %>
+
         <% } else { %>
             <div class="text-center">
                 <h5>Log in</h5>
@@ -17,17 +20,17 @@
               <input class="form-control" name="password" type="password"/>
               <button class="btn btn-success">Log In</button>
             </form>
-        <%}%>
         
         <hr class="">    
 
-        <div class="text-center">
+        <div class="text-center" style="font-size: large;">
             <a
                 href="/sign-up"
                 class="badge bg-primary"
                 >New User? Create an account!</a
             >
         </div>
+        <%}%>
 
     </div>
 <%- include('footer') -%>

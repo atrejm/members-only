@@ -1,0 +1,91 @@
+<%- include('header') -%>
+    <div class="container">
+        <h1>Messages page</h1>
+
+        <% if (user) {%>
+            <h3>Welcome back, <%= user.username %></h3>
+        
+        <% if (user.admin) { %>
+            <p class="text-danger">admin privileges enabled!</p>
+        <% } %>
+        <form method="POST">
+            <div class="card mb-3 p-1">
+                <h4>Create new post</h4>
+                <div class="col-sm">
+                    <label for="title" class="card-text">Title:</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        name="title"
+                        id="title"
+                        maxlength="40"
+                        value="<% if (errors) { %><%= title %><% } %>"
+                        required
+                    />
+                </div>
+                
+                <div class="col-sm">
+                    <label for="textbody" class="col-form-label">Content:</label>
+                    <textarea
+                        type="input"
+                        class="form-control"
+                        name="textbody"
+                        id="textbody"
+                        maxlength="400"
+                        value="<% if (errors) { %><%= textbody %><% } %>"
+                        required
+                    ></textarea>
+                </div>
+            </div>
+            
+            
+            
+            <% if (errors) { %>
+                <ul>
+                    <% errors.forEach(err => { %>
+                        <li class="text-danger"><%= err.msg %></li>
+                    <% }) %>
+                </ul>
+            <% } %>
+
+            <div class="text-center mb-2">
+                <button class="btn btn-success btn-sm" type="submit">Create Post</button>
+            </div>
+        </form>
+
+        <% } else { %>
+        
+        <%}%>
+        
+        <ul class="list-group">
+            <% messages.forEach(msg => { %>
+                <div class="card mb-1">
+                    <li class="list-group-item">
+                        <h5>
+                            <strong><%= msg.title %></strong>
+                            <span style="color: darkgrey; font-size: smaller;">
+                                <%= msg.date_time_posted %>
+                            </span>
+                        </h5>
+                        <h6>
+                            <span class="text-info">
+                                Author:
+                                <a href="user/<%= msg.author.url %>">
+                                    <%= msg.author.username %>
+                                </a>
+                            </span>
+                        </h6>
+                        <p>
+                            <%= msg.content %>
+                        </p>
+                        <% if (user && user.admin) { %>
+                            <form action="/messages/delete-post/<%=msg.url%>" method="post">
+                                <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+                            </form>
+                        <% } %>
+                    </li>
+                </div>
+            <% }) %>
+        </ul>
+    </div>
+<%- include('footer') -%>

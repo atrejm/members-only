@@ -1,0 +1,40 @@
+<%- include('header') -%>
+    <div class="container">
+        <h1><%= author.username %>'s Profile</h1>
+
+        <% if (user) { %>
+        <h3>Welcome back, <%= user.username %></h3>
+        
+        <% } %>
+
+        <hr>
+        <h5>Comments</h5>
+
+        <% if (messages.length == 0) { %>
+            <p>No comments yet...</p>
+        <% } %>
+
+        <ul class="list-group">
+            <% messages.forEach(msg => { %>
+                <div class="card mb-1">
+                    <li class="list-group-item">
+                        <h5>
+                            <strong><%= msg.title %></strong>
+                            <span style="color: darkgrey; font-size: smaller;">
+                                <%= msg.date_time_posted %>
+                            </span>
+                        </h5>
+                        <p>
+                            <%= msg.content %>
+                        </p>
+                        <% if (user && user._id == authorizedID) { %>
+                            <form action="/messages/delete-post/<%=msg.url%>" method="post">
+                                <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+                            </form>
+                        <% } %>
+                    </li>
+                </div>
+            <% }) %>
+        </ul>
+    </div>
+<%- include('footer') -%>
